@@ -2,7 +2,7 @@ Package: kgen
 Type: Package
 Title: A Tool for Calculating Stoichiometric Equilibrium Constants (Ks)
         for Seawater
-Version: 0.2.1
+Version: 0.3.0
 Authors@R: 
     person(given = "Dennis",
            family = "Mayk",
@@ -20,8 +20,8 @@ Suggests: testthat (>= 3.0.0)
 RoxygenNote: 7.2.3
 Config/testthat/edition: 3
 NeedsCompilation: no
-Packaged: 2023-03-17 09:38:22 UTC; dm807cam
+Packaged: 2023-12-19 12:24:33 UTC; dm807cam
 Author: Dennis Mayk [aut, cre] (<https://orcid.org/0000-0002-5017-1495>)
 Maintainer: Dennis Mayk <dm807@cantab.ac.uk>
 Repository: CRAN
-Date/Publication: 2023-03-17 17:30:01 UTC
+Date/Publication: 2023-12-19 12:40:02 UTC
