@@ -1,4 +1,4 @@
-4f01a0d635bd61ac9f2be5e7dcae5670 *DESCRIPTION
+fc8530b1bc9560009ed2bdf42a305562 *DESCRIPTION
 2ccc107bc1cf8ba5307ae12e267cf48b *LICENSE
 c5afa0a53a017d9e2b1af05cbebab3dc *NAMESPACE
 00ddeab031e6865a451e827e3efed53c *NEWS.md
@@ -7,7 +7,7 @@ e45225814b1d13ef20475a03ebe46dc1 *R/Kgen-package.R
 f5a78b6e1ecc2eada1bd2ddb4239983d *R/main.R
 91384cec71ca1e193208ff685b61714f *R/pymyami.R
 697342afd642d5dc4638e9aaae693a85 *R/utility.R
-2b22eb6492a51369cd7e9b8607c742e9 *R/zzz.R
+b032bf912a779c86c66cf54148dd6d62 *R/zzz.R
 567c8dd34f14543827d8810b81e715ec *inst/check_values/check_Ks.json
 05de2f792f922ad2059e406f87d35f11 *inst/check_values/check_presscorr.json
 a7644c8f51df3c5f38e5c47b104bd43d *inst/coefficients/K_calculation.json
