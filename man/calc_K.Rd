@@ -3,7 +3,6 @@
 \name{calc_K}
 \alias{calc_K}
 \alias{calc_Ks}
-\alias{calc_all_Ks}
 \title{Calculate a single equilibrium constant}
 \usage{
 calc_K(
@@ -25,19 +24,8 @@ calc_Ks(
   p_bar = NULL,
   magnesium = 0.0528171,
   calcium = 0.0102821,
-  sulphate = NULL,
-  fluorine = NULL,
-  method = "r_polynomial"
-)
-
-calc_all_Ks(
-  temp_c = 25,
-  sal = 35,
-  p_bar = NULL,
-  magnesium = 0.0528171,
-  calcium = 0.0102821,
-  sulphate = NULL,
-  fluorine = NULL,
+  sulphate = calc_sulphate(sal = sal),
+  fluorine = calc_fluorine(sal = sal),
   method = "r_polynomial"
 )
 }
@@ -50,9 +38,9 @@ calc_all_Ks(
 
 \item{p_bar}{Pressure (Bar) (optional)}
 
-\item{magnesium}{magnesium concentration in mol/kgsw. If None, modern is assumed (0.0528171). Should be the average magnesium concentration in seawater - a salinity correction is then applied to calculate the magnesium concentration in the sample.}
+\item{magnesium}{Magnesium concentration in mol/kgsw. Default is modern seawater (0.0528171). Should be the average magnesium concentration in seawater - a salinity correction is then applied to calculate the magnesium concentration in the sample.}
 
-\item{calcium}{calcium concentration in mol/kgsw. If None, modern is assumed (0.0102821). Should be the average calcium concentration in seawater - a salinity correction is then applied to calculate the magnesium concentration in the sample.}
+\item{calcium}{Calcium concentration in mol/kgsw. Default is modern seawater (0.0102821). Should be the average calcium concentration in seawater - a salinity correction is then applied to calculate the calcium concentration in the sample.}
 
 \item{sulphate}{Sulphate concentration in mol/kgsw. Calculated from salinity if not given.}
 
@@ -66,8 +54,6 @@ calc_all_Ks(
 \strong{A single} K at given conditions
 
 Data.table of \strong{multiple} Ks at given conditions
-
-Data.table of \strong{all} Ks at given conditions
 }
 \description{
 Calculate \strong{a single} specified stoichiometric equilibrium constant at given temperature, salinity, pressure and the concentration of magnesium, calcium, sulphate, and fluorine.
@@ -76,9 +62,39 @@ Calculate \strong{a single} specified stoichiometric equilibrium constant at giv
 \itemize{
 \item \code{calc_Ks()}: Wrapper to calculate \strong{multiple} stoichiometric equilibrium constants at given temperature, salinity, pressure and the concentration of magnesium, calcium, sulphate, and fluorine.
 
-\item \code{calc_all_Ks()}: Wrapper to calculate \strong{all} stoichiometric equilibrium constants at given temperature, salinity, pressure and the concentration of magnesium, calcium, sulphate, and fluorine.
-
 }}
+\examples{
+# Calculate K1 at default conditions
+calc_K("K1", temp_c = 25, sal = 35)
+
+# Calculate K1 with pressure correction
+calc_K("K1", temp_c = 25, sal = 35, p_bar = 100)
+# Calculate all Ks at default conditions
+calc_Ks(temp_c = 25, sal = 35)
+
+# Calculate specific Ks
+calc_Ks(ks = c("K1", "K2"), temp_c = 25, sal = 35)
+
+\donttest{
+# Parallel execution (requires future + future.apply packages)
+if (requireNamespace("future", quietly = TRUE)) {
+  future::plan(future::multisession,
+    workers = future::availableCores() - 1
+  )
+
+  dt_list <- as.list(data.table::CJ(
+    temp_c = seq_len(40),
+    sal = 30:40,
+    p_bar = 0:100,
+    magnesium = seq(0, 0.06, by = 0.01),
+    calcium = seq(0, 0.06, by = 0.01)
+  ))
+
+  res <- do.call(what = calc_Ks, args = dt_list)
+  future::plan(future::sequential)
+}
+}
+}
 \author{
 Dennis Mayk
 }
